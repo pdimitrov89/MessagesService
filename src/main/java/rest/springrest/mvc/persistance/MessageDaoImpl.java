@@ -10,7 +10,7 @@ import org.hibernate.Session;
 import rest.springrest.mvc.model.Message;
 
 /**
- * Dao for Message instances.
+ * Dao implementation for Message instances.
  * 
  * @author pdimirov
  */

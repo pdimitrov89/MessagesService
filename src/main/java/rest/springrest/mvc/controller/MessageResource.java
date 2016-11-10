@@ -23,7 +23,8 @@ import rest.springrest.mvc.model.MessageVo;
 import rest.springrest.mvc.persistance.util.UUIDProvider;
 import rest.springrest.mvc.persistance.util.DaoProvider;
 /**
- *
+ * The controller for messages.
+ * 
  * @author pdimitrov
  */
 @RestController
@@ -35,33 +36,22 @@ public class MessageResource {
     @Autowired
     private DaoProvider daoProvider;
     
-    static {
-        System.out.println("REST controller Initialized");
-    }
- 
+    /**
+     * Setter for daoProvider this method is used only for test setup purposes.
+     * @param daoProvider 
+     */
     protected void setDaoProvider(DaoProvider daoProvider) {
         this.daoProvider = daoProvider;
     }
  
-    @RequestMapping(value = "/messages.json", method = RequestMethod.GET)
-    public ResponseEntity<List<MessageVo>> listAllUsers() {
-            List<MessageVo> users = new ArrayList<>();
-            users.add(new MessageVo("MM1"));
-            users.add(new MessageVo("MM2"));
-            
-            return new ResponseEntity<List<MessageVo>>(users, HttpStatus.OK);
-    }
-        
     /**
      * Posts new Message to the database.
-     * @param msgType
-     * @param msgVo
-     * @param ucBuilder
-     * @return 
+     * @param msgType - could be one of send_text or send_emotion.
+     * @param msgVo - the body of the request of format {"payload":"some characters"}
+     * @return ResponseEntity with status 201 Created if the preconditions are met, 
+     * or status 412 PRECONDITION_FAILED otherwise. I can also return status 500 INTERNAL_SERVER_ERROR.
      */
-    @RequestMapping(value = "/messages/{type}", 
-            method = RequestMethod.POST 
-            )
+    @RequestMapping(value = "/messages/{type}", method = RequestMethod.POST)
     public ResponseEntity<Void> postMessage(@PathVariable("type") String msgType, @RequestBody MessageVo msgVo) {
         
         Message msg = null;
@@ -71,17 +61,14 @@ public class MessageResource {
         } catch(Exception ex) {
             return new ResponseEntity<Void>(HttpStatus.PRECONDITION_FAILED);
         }
+        // we have valid message, so log into DB. 
         try {
             daoProvider.getMessageDao().save(msg);
         } catch (Exception ex) {
-            ex.printStackTrace(); 
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
- 
-     
- 
  
 }

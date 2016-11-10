@@ -6,7 +6,7 @@
 package rest.springrest.mvc.persistance.util;
 
 /**
- *
+ * Indicates that implementors are able to provide Id of type IdType.
  * @author pdimitrov
  */
 public interface IdProvider<IdType> {

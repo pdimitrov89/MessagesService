@@ -9,7 +9,8 @@ import rest.springrest.mvc.persistance.util.DaoProvider;
 import rest.springrest.mvc.persistance.util.PrepareTestPersistance;
 
 /**
- *
+ * Base class for persistence test cases. Knows how to prepare the environment.
+ * 
  * @author pdimitrov
  */
 public class AbstractPersistanceTestCase {
@@ -23,7 +24,6 @@ public class AbstractPersistanceTestCase {
                 PrepareTestPersistance.closeInstance();
             }
         ));
-        
     }
     
     public DaoProvider getDaoProvider() {

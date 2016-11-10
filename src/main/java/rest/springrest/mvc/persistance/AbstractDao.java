@@ -8,10 +8,9 @@ package rest.springrest.mvc.persistance;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import rest.springrest.mvc.model.Message;
 
 /**
- * Abstract Dao class to serve as parent for entity Dao's.  
+ * Abstract Dao implementation class to serve as parent for entity Dao's.  
  * 
  * @author pdimitrov
  */
@@ -23,6 +22,10 @@ public abstract class AbstractDao<Entity> {
         this.session = s;
     }
     
+    /**
+     * Save entity.
+     * @param entity 
+     */
     public void save(Entity entity) {
         if (entity == null) {
             throw new IllegalArgumentException("Entity can not be null.");
@@ -42,6 +45,11 @@ public abstract class AbstractDao<Entity> {
         }
     }
     
+    /**
+     * List all entities of type entityName.
+     * @param entityName
+     * @return 
+     */
     protected List<Entity> list(String entityName) { 
         List<Entity> entityList = session.createQuery("from " + entityName).list();
         session.close();

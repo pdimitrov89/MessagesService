@@ -13,7 +13,7 @@
         
         <property name="typeAsString" column="type" type="string" access="property"/>
         <property name="msg" column="payload" type="string" access="field"/>
-        <property name="createdAtAsDate" column="created_at" type="date" access="property"/>
+        <property name="createdAtAsDate" column="created_at" type="timestamp" access="property"/>
         
     </class>
     

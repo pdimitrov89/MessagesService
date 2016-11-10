@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import rest.springrest.mvc.model.Message;
 import rest.springrest.mvc.persistance.MessageDao;
-import rest.springrest.mvc.persistance.MessageDaoImpl;
 import rest.springrest.mvc.persistance.util.DaoProvider;
 
 /**
- *
+ * Mock DaoProvider which just stores saved entities.
+ * 
  * @author pdimitrov
  */
 public class MockDaoProvider extends DaoProvider {

@@ -14,6 +14,7 @@ import rest.springrest.mvc.model.Message;
  * @author pdimitrov
  */
 public interface MessageDao {
+    
     public void save(Message msg);
     
     public List<Message> list();

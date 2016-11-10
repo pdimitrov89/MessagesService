@@ -5,11 +5,10 @@
  */
 package rest.springrest.mvc.persistance.util;
 
-import rest.springrest.mvc.persistance.util.IdProvider;
 import java.util.UUID;
 
 /**
- *
+ * Implementation of the IdPrivider interface which knows how to generate UUID.
  * @author pdimitrov
  */
 public class UUIDProvider implements IdProvider<String> {
@@ -20,5 +19,4 @@ public class UUIDProvider implements IdProvider<String> {
     public String getId() {
         return UUID.randomUUID().toString();
     }
-    
 }

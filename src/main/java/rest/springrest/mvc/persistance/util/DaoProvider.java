@@ -16,7 +16,7 @@ import rest.springrest.mvc.persistance.MessageDaoImpl;
  * 
  * @author pdimitrov
  */
-public class DaoProvider implements DisposableBean{
+public class DaoProvider implements DisposableBean {
     
     private SessionFactory sessionFactory;
     private Session hbmSession;
@@ -25,7 +25,6 @@ public class DaoProvider implements DisposableBean{
 
     public DaoProvider() {
         // used by spring CGLIB
-        System.out.println("DaoProvider ___ PROXY");
     }
     
     public DaoProvider(HibernateUtil hbUtil) {
@@ -34,8 +33,6 @@ public class DaoProvider implements DisposableBean{
     
     public DaoProvider(SessionFactory sFactory) {
         this.sessionFactory = sFactory;
-        
-        System.out.println("DaoProvider ___ CONSTRUCT");
     }
     
     public Session getSession() {
@@ -58,5 +55,4 @@ public class DaoProvider implements DisposableBean{
             hbmSession.close();
         }
     }
-    
 }

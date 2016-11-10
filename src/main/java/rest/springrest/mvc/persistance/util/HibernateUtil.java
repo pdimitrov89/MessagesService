@@ -26,7 +26,6 @@ public class HibernateUtil {
         sessionFactory = buildSessionFactory();
     }
 
-    
     private SessionFactory buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
@@ -41,5 +40,4 @@ public class HibernateUtil {
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    
 }

@@ -5,7 +5,6 @@
  */
 package rest.springrest.mvc.controller;
 
-import junit.framework.Assert;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import org.junit.Before;
@@ -18,10 +17,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import rest.springrest.mvc.model.Message;
 import rest.springrest.mvc.model.Message.MessageType;
+
 /**
- *
+ * TestCase for the MessageResource controller. Uses MockMvc to mock the servlet container.
  * @author pdimitrov
  */
 public class MessagesResourceTestCase {
@@ -40,6 +39,10 @@ public class MessagesResourceTestCase {
     }
     
     
+    /**
+     * Test the posting of messages with type send_emotion.
+     * @throws Exception 
+     */
     @Test
     public void testSendEmotion() throws Exception {
         // valid payload 
@@ -65,17 +68,32 @@ public class MessagesResourceTestCase {
         res.andExpect(status().isPreconditionFailed())
             .andExpect(content().bytes(new byte[0]));
         
-        // invalid payload - to long
+        // invalid payload - to long - 11 characters
         res = this.mockMvc.perform(post("/messages/send_emotion")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"payload\":\".1234567891011\"}")
+                .content("{\"payload\":\".abcabcabc,\"}")
         );
         res.andExpect(status().isPreconditionFailed())
             .andExpect(content().bytes(new byte[0]));
+        
+        // invalid payload - contains numeric characters.
+        res = this.mockMvc.perform(post("/messages/send_emotion")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"payload\":\".123er\"}")
+        );
+        res.andExpect(status().isPreconditionFailed())
+            .andExpect(content().bytes(new byte[0]));
+        
+        
+        
         // assert there are no new messages
         assertEquals(1, daoProvider.getMessages().size());
     }
 
+    /**
+     * Test the posting of messages with type send_text.
+     * @throws Exception 
+     */
     @Test
     public void testSendText() throws Exception {
         // valid payload 

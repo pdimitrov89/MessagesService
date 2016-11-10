@@ -13,7 +13,8 @@ import rest.springrest.mvc.model.Message;
 import rest.springrest.mvc.model.Message.MessageType;
 
 /**
- *
+ * Test case for MessageDao.
+ * 
  * @author pdimitrov
  */
 public class MessageDaoTestCase extends AbstractPersistanceTestCase {
@@ -32,14 +33,12 @@ public class MessageDaoTestCase extends AbstractPersistanceTestCase {
 
         List<Message> list = messageDAO.list();
         assertEquals(1, list.size());
-        for(Message m : list){
-            assertEquals("myId", m.getId());
-            assertEquals("Hello", m.getMsg());
-            assertEquals(MessageType.send_text, m.getType());
-            assertEquals(createdAt.toString(), m.getCreatedAt().toString());
-        }
-       // context.close();
-    
+        Message m = list.get(0);
+        
+        assertEquals("myId", m.getId());
+        assertEquals("Hello", m.getMsg());
+        assertEquals(MessageType.send_text, m.getType());
+        assertEquals(createdAt.toString(), m.getCreatedAt().toString());
     }
     
 }
